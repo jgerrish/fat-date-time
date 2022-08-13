@@ -1,0 +1,14 @@
+[package]
+name = "fat-date-time"
+version = "0.1.0"
+edition = "2021"
+authors = ["Joshua Gerrish <jgerrish@gmail.com>"]
+description = "Rust crate to parse DOS FAT dates and times"
+keywords = ["fat", "dos", "filesystem", "date", "time"]
+readme = "README.md"
+repository = "https://github.com/jgerrish/fat-date-time"
+homepage = "https://github.com/jgerrish/fat-date-time"
+license = "MIT"
+
+[dependencies]
+time = "0.3"
