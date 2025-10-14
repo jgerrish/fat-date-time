@@ -204,4 +204,45 @@ mod tests {
         let time = parse_fat_time(0b1100011101111101);
         assert!(time.is_none());
     }
+
+    /// Tests from pyfatfs Python module
+    #[test]
+    fn external_tests_pass() {
+        let date = parse_fat_date(0xFF9F);
+        assert!(date.is_some());
+        assert_eq!(date.unwrap().year(), 2107);
+        assert_eq!(date.unwrap().month(), Month::December);
+        assert_eq!(date.unwrap().day(), 31);
+
+        // maximum time value
+        let date = parse_fat_date(0xBF7D);
+        assert!(date.is_some());
+        assert_eq!(date.unwrap().year(), 2075);
+        assert_eq!(date.unwrap().month(), Month::November);
+        assert_eq!(date.unwrap().day(), 29);
+
+        let time = parse_fat_time(0xBF7D);
+        assert!(time.is_some());
+        assert_eq!(time.unwrap().hour(), 23);
+        assert_eq!(time.unwrap().minute(), 59);
+        assert_eq!(time.unwrap().second(), 58);
+
+        let date = parse_fat_date(0xFF9F);
+        assert!(date.is_some());
+        assert_eq!(date.unwrap().year(), 2107);
+        assert_eq!(date.unwrap().month(), Month::December);
+        assert_eq!(date.unwrap().day(), 31);
+
+        let date = parse_fat_date(0x0021);
+        assert!(date.is_some());
+        assert_eq!(date.unwrap().year(), 1980);
+        assert_eq!(date.unwrap().month(), Month::January);
+        assert_eq!(date.unwrap().day(), 1);
+
+        let time = parse_fat_time(0x477D);
+        assert!(time.is_some());
+        assert_eq!(time.unwrap().hour(), 8);
+        assert_eq!(time.unwrap().minute(), 59);
+        assert_eq!(time.unwrap().second(), 58);
+    }
 }
